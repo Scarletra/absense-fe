@@ -4,10 +4,11 @@ import { Layout } from './components/Layout';
 import { AbsensiPage } from './pages/AbsensiPage';
 import { KaryawanPage } from './pages/KaryawanPage';
 import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { PublicRoute } from './components/PublicRoute';
 import { Toaster } from './components/Toaster';
 import type { User } from './types';
-import { RegisterPage } from './pages/RegisterPage';
 
 const customSystem = createSystem(defaultConfig, {
   theme: {
@@ -34,8 +35,10 @@ function App() {
     <ChakraProvider value={customSystem}>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route element={<PublicRoute />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Route>
           
           <Route element={<ProtectedRoute />}>
             <Route element={<Layout user={currentUser!} />}>
