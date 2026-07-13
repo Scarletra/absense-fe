@@ -7,10 +7,12 @@ export const useAbsensi = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
 
-  const fetchAbsensi = useCallback(async () => {
+  const fetchAbsensi = useCallback(async (userId?: number) => {
     setLoading(true);
     try {
-      const response = await api.get('/attendance');
+      const response = await api.get('/attendance', {
+        params: userId ? { userId } : {}
+      });
       setData(response.data);
     } catch (error) {
       console.error('Gagal fetch absensi:', error);
@@ -35,7 +37,7 @@ export const useAbsensi = () => {
         duration: 3000,
       });
       onSuccess();
-      fetchAbsensi();
+      fetchAbsensi(userId);
     } catch (error) {
       toaster.create({
         title: 'Gagal Absen',

@@ -28,8 +28,8 @@ export const AbsensiPage = () => {
   const currentUser: User | null = userStr ? JSON.parse(userStr) : null;
 
   useEffect(() => {
-    fetchAbsensi();
-  }, [fetchAbsensi]);
+    if (currentUser) fetchAbsensi(currentUser.id);
+  }, [fetchAbsensi, currentUser?.id]);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
