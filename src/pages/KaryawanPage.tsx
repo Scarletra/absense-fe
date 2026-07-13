@@ -36,7 +36,7 @@ export const KaryawanPage = () => {
   return (
     <Box>
       <Flex justify="space-between" align="center" mb={6}>
-        <Heading size="lg" fontFamily="sans-serif" fontWeight="800">Daftar Karyawan</Heading>
+        <Heading size="lg" fontFamily="sans-serif" fontWeight="800" color="gray.600">Daftar Karyawan</Heading>
         <Button colorScheme="blue" borderRadius="md">Tambah Karyawan</Button>
       </Flex>
       <DynamicTable columns={columns} data={data} />
