@@ -3,6 +3,7 @@ import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import { Layout } from './components/Layout';
 import { AbsensiPage } from './pages/AbsensiPage';
 import { KaryawanPage } from './pages/KaryawanPage';
+import { Toaster } from './components/Toaster';
 import type { User } from './types';
 
 const currentUser: User = {
@@ -23,6 +24,8 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+
+      <Toaster />
     </ChakraProvider>
   );
 }
