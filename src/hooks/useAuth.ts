@@ -32,11 +32,43 @@ export const useAuth = () => {
     }
   };
 
+  const register = async (nip: string, name: string, password: string) => {
+    setLoading(true);
+    try {
+      await api.post('/users', {
+        nip,
+        name,
+        password,
+        isHrd: false,
+      });
+
+      toaster.create({
+        title: 'Registrasi Berhasil',
+        description: 'Silakan login.',
+        type: 'success',
+        duration: 3000,
+      });
+
+      return true;
+    } catch (error) {
+      toaster.create({
+        title: 'Registrasi Gagal',
+        description: 'NIP mungkin sudah terdaftar atau server bermasalah.',
+        type: 'error',
+        duration: 3000,
+      });
+
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     window.location.href = '/login';
   };
 
-  return { login, logout, loading };
+  return { login, register, logout, loading };
 };

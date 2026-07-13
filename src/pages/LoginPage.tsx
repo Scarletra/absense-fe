@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { Box, Button, Field, Input, Heading, VStack, Center } from '@chakra-ui/react';
+import { Box, Button, Field, Input, Heading, VStack, Center, Text } from '@chakra-ui/react';
 import { useAuth } from '../hooks/useAuth';
+import { Link as RouterLink } from 'react-router-dom';
 
 export const LoginPage = () => {
   const [nip, setNip] = useState<string>('');
@@ -18,7 +19,7 @@ export const LoginPage = () => {
       <Box bg="white" p={8} maxWidth="400px" w="full" borderRadius="xl" boxShadow="lg">
         <VStack gap={6} as="form" onSubmit={handleLogin}>
           <Heading size="lg" fontFamily="sans-serif" fontWeight="900" letterSpacing="tight" color="blue.600">
-            Proyekin
+            Absense
           </Heading>
 
           <Field.Root required>
@@ -52,6 +53,12 @@ export const LoginPage = () => {
           >
             Masuk
           </Button>
+          <Text fontSize="sm" mt={4}>
+            Belum punya akun?{' '}
+            <RouterLink to="/register" style={{ color: '#3182ce', fontWeight: 'bold' }}>
+              Daftar di sini
+            </RouterLink>
+          </Text>
         </VStack>
       </Box>
     </Center>
