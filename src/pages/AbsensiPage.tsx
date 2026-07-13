@@ -1,19 +1,33 @@
 import { Box, Button, Flex, Heading, Badge } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { DynamicTable } from '../components/DynamicTable';
+import { useAbsensi } from '../hooks/useAbsensi';
 import type { Column } from '../types';
 
-interface Absensi {
+interface AbsensiData {
   id: number;
-  tanggal: string;
-  waktu: string;
+  timestamp: string;
   status: string;
+  photoPath: string;
 }
 
 export const AbsensiPage = () => {
-  const columns: Column<Absensi>[] = [
+  const { data, fetchAbsensi } = useAbsensi();
+
+  useEffect(() => {
+    fetchAbsensi();
+  }, [fetchAbsensi]);
+
+  const columns: Column<AbsensiData>[] = [
     { header: 'ID', accessor: 'id' },
-    { header: 'Tanggal', accessor: 'tanggal' },
-    { header: 'Waktu', accessor: 'waktu' },
+    { 
+      header: 'Tanggal', 
+      render: (row) => new Date(row.timestamp).toLocaleDateString('id-ID')
+    },
+    { 
+      header: 'Waktu', 
+      render: (row) => new Date(row.timestamp).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+    },
     {
       header: 'Status',
       render: (row) => (
@@ -30,11 +44,6 @@ export const AbsensiPage = () => {
         </Button>
       ),
     },
-  ];
-
-  const data: Absensi[] = [
-    { id: 1, tanggal: '2026-07-11', waktu: '08:00', status: 'Hadir' },
-    { id: 2, tanggal: '2026-07-10', waktu: '08:15', status: 'Terlambat' },
   ];
 
   return (

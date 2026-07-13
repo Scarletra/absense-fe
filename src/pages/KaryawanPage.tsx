@@ -1,8 +1,16 @@
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { DynamicTable } from '../components/DynamicTable';
+import { useKaryawan } from '../hooks/useKaryawan';
 import type { Column, User } from '../types';
 
 export const KaryawanPage = () => {
+  const { data, fetchKaryawan } = useKaryawan();
+
+  useEffect(() => {
+    fetchKaryawan();
+  }, [fetchKaryawan]);
+
   const columns: Column<User>[] = [
     { header: 'ID', accessor: 'id' },
     { header: 'Nama', accessor: 'name' },
@@ -23,11 +31,6 @@ export const KaryawanPage = () => {
         </Flex>
       ),
     },
-  ];
-
-  const data: User[] = [
-    { id: 1, name: 'Budi Santoso', isHrd: true },
-    { id: 2, name: 'Siti Aminah', isHrd: false },
   ];
 
   return (
